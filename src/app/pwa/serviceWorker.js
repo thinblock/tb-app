@@ -1,0 +1,5 @@
+// empty PWA, workbox can be used for caching resources
+
+this.addEventListener('fetch', function (event) {
+  // it can be empty if you just want to get rid of that error
+});

@@ -1,0 +1,110 @@
+.button {
+  color: white;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  box-shadow: 0 5px 15px 0 rgba(61, 141, 251, .5);
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover { 
+    opacity: 0.8;
+  }
+  &:active { 
+    opacity: 0.8;
+    box-shadow: 0 0 5px 0 rgba(61, 141, 251, .5);
+  }
+}
+
+.button__lg {
+  font-size: 18px;
+  width: 260px;
+  height: 50px;
+}
+
+.button--center {
+  margin: 0 auto;
+  display: block;
+}
+
+.button__sm {
+  font-size: 12px;
+  width: 125px;
+  height: 35px;
+}
+
+.button--icon {
+  position: relative;
+}
+
+.button--block {
+  width: 100% !important;
+  display: block;
+}
+
+.button--round {
+  border-radius: 50px;
+}
+
+.button--disabled {
+  opacity: 0.3 !important;
+  box-shadow: 0 5px 15px 0 rgba(61, 141, 251, .5) !important;
+}
+
+.button--primary {
+  background: #3d8dfb;
+
+  .button__icon {
+    background-color: #2B82FB;
+  }
+}
+
+.button--secondary {
+  background: #44CEFF;
+
+  .button__icon {
+    background-color: #30BEFF;
+  }
+}
+
+.button--secondary_action {
+  background: #70D282;
+  box-shadow: 0 5px 15px 0 rgba(112,210,130,0.50) !important;
+
+  &:active {
+    box-shadow: 0 0 5px 0 rgba(112,210,130,0.50) !important;
+  }
+}
+
+.button__icon {
+  position: absolute;
+  top: 13.5px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+
+  &.button__icon--left {
+    left: 13.5px;
+  }
+  &.button__icon--right {
+    right: 13.5px;
+  }
+
+  img {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    margin: 0 auto;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  span {
+    top: 4px;
+    left: 11px;
+    color: #ffffff;
+    font-size: 13px;
+    position: absolute;
+  }
+}

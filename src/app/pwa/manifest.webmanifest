@@ -1,0 +1,9 @@
+{
+  "background_color": "#16b0ee",
+  "theme_color": "#16b0ee",
+  "description": "Thinblock mobile app",
+  "display": "standalone",
+  "name": "ThinBlock",
+  "short_name": "ThinBlock",
+  "start_url": "/"
+}

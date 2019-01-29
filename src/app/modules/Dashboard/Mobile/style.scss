@@ -1,0 +1,471 @@
+.dashboard-mob {
+  &.dashboard-mob--fixed {
+    .dashboard-mob__weather-box {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 160px;
+      z-index: 101;
+    }
+    .dashboard-mob__weather-nav, .weather-info__btn {
+      display: none;
+    }
+    .dashboard-mob__content {
+      margin-top: 150px;
+    }
+    .dashboard-mob__weather-info {
+      margin-top: 35px;
+    }
+    .dashboard-mob__tabs-content {
+      margin-top: 120px;
+    }
+    .weather-info__size {
+      font-size: 50px !important;
+      line-height: 55px !important;
+    }
+  }
+
+  .dashboard-mob__nav {
+    width: 100%;
+    z-index: 102;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    .dashboard-mob__nav-icons {
+      float: right;
+      right: 20px;
+      top: 20px;
+      position: relative;
+    }
+  }
+
+  .dashboard-mob__nav-wrap {
+    background: #F7FAFC;
+    position: fixed;
+    z-index: 101;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding-top: 82px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+  }
+
+  .dashboard-mob__nav-bg {
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #F7FAFC;
+  }
+
+  .dashboard-mob__weather-box {
+    position: relative;
+    min-height: 150px;
+    height: 360px;
+    max-height: 360px;
+    background-image: linear-gradient(0deg, #70C1FD 0%, #3D8DFB 92%);
+    &.dashboard-mob__weather-box--green {
+      background-image: linear-gradient(0deg, #89D74B 0%, #00B77A 92%);
+
+      .dashboard-mob__weather-nav--active {
+        opacity: 1;
+        background: rgba(21, 172, 107, 0.7)!important
+      }
+      button {
+        box-shadow: 0 11px 18px 0 rgba(63,186,68,0.35) !important;
+      }
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    .dashboard-mob__weather-nav {
+      margin: 0 20px;
+      padding: 50px 10px 0;
+      position: relative;
+      z-index: 10;
+      li {
+        display: flex;
+        cursor: pointer;
+        justify-content: center;
+        opacity: 0.4;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        padding: 12px 20px;
+        letter-spacing: 1px;
+
+        &.dashboard-mob__weather-nav--active {
+          opacity: 1;
+          border-radius: 20px;
+          background: rgba(56, 129, 249, 0.5);
+        }
+      }
+    }
+
+    .dashboard-mob__weather-info {
+      h3 {
+        margin-top: 30px;
+        font-weight: bold;
+        font-family: Quicksand;
+        font-size: 25px;
+        color: #FFFFFF;
+        text-align: center;
+        margin-bottom: 0;
+      }
+
+      h1 {
+        position: relative;
+        opacity: 0.9;
+        margin-top: 12px;
+        margin-bottom: 0;
+        font-size: 94.46px;
+        line-height: 110px;
+        font-family: Quicksand;
+        font-weight: bold;
+        letter-spacing: -3.6px;
+        text-align: center;
+        text-shadow: 0 5px 8px rgba(61,141,251,0.15);
+        color: #FFFFFF;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 1) 92%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        span {
+          position: absolute;
+          top: 8px;
+          margin-left: -2px;
+          font-size: 30.24px;
+          text-shadow: 0 5px 8px rgba(61,141,251,0.15);
+        }
+      }
+
+      h3 {
+        margin-top: 0;
+        margin-bottom: 35px;
+        font-family: Quicksand;
+        font-weight: bold;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 1) 92%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 17px;
+        color: #FFFFFF;
+        text-align: center;
+      }
+
+      .weather-info__btn {
+        text-align: center;
+        outline: none;
+        position: relative;
+        z-index: 10;
+        width: 150px;
+        margin: 0 auto;
+        button {
+          border-style: none;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 15px;
+          padding: 15px 0;
+          border-radius: 24px;
+          color: #FFFFFF;
+          letter-spacing: 1.07px;
+          text-align: center;
+          width: 150px;
+          outline: none;
+          background: #44CEFF;
+          padding-right: 25px;
+          box-shadow: 0 11px 18px 0 rgba(68,155,251,0.35);
+          &:active, &:focus {
+            outline: none;
+          }
+          &:active {
+            box-shadow: none !important;
+            opacity: 0.8;
+          }
+
+          > span:last-child {
+            width: 23px;
+            border-radius: 25px;
+            height: 23px;
+            background: #30BEFF;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            opacity: 0.5;
+
+            span {
+              margin-left: 2px;
+            }
+          }
+        }
+      }
+    }
+
+    .dashboard-mob__weather-details {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      padding: 0 20px;
+
+      li {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        justify-content: center;
+
+        &:first-child {
+          justify-content: flex-start;
+        }
+
+        &:last-child {
+          justify-content: flex-end;
+        }
+
+        > div {
+          display: inline-block;
+        }
+        &:after {
+          display: block;
+          width: 100%;
+          clear: both;
+        }
+      }
+
+      .weather-details__info {
+        .weather-details__value, .weather-details__type {
+          display: block;
+          font-weight: bold;
+          color: #FFFFFF;
+        }
+        .weather-details__value {
+          opacity: 0.6;
+          font-size: 12px;
+          margin-bottom: 2px;
+        }
+
+        .weather-details__type {
+          opacity: 0.9;
+          font-size: 15px;
+        }
+      }
+      .weather-details__icon {
+        position: relative;
+        top: 2px;
+        margin-right: 10px;
+        img {
+          position: relative;
+        }
+      }
+    }
+
+    .dashboard-mob__weather-bg {
+      width: 100%;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      bottom: 0;
+      height: 0;
+      padding-top: 110%;
+      position: absolute;
+      z-index: 9;
+    }
+  }
+
+
+  .dashboard-mob__notifications-wrap {
+    padding: 0 20px;
+
+    .dashboard-mob__notifications-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-top: 20px;
+
+      li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        p {
+          font-size: 15px;
+          line-height: 20px;
+        }
+
+        > div {
+          display: flex;
+        }
+
+        .dashboard-mob__notifications-icon {
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+          margin-right: 15px;
+          padding: 12.5px;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+
+          &.icon--harvest {
+            background: #70D282;
+          }
+          &.icon--drops {
+            background: #44CEFF;
+          }
+          &.icon--community {
+            background: #6E8395;
+          }
+          &.icon--therm {
+            background: #FF8E85;
+          }
+          &.icon--fertilizer {
+            background: #FF9B5A;
+          }
+          &.icon--time {
+            background: #3D8DFB;
+          }
+          &.icon--growth {
+            background: #70D2A9;
+          }
+          &.icon--announcement {
+            background: #9D8DF5;
+          }
+          &.icon--price {
+            background: #F1D24F;
+          }
+        }
+
+        .dashboard-mob__notifications-content {
+          flex: 2;
+          border-top: 1px solid rgba(110, 131, 149, 0.1);
+          font-weight: 500;
+          font-size: 15px;
+          color: #6E8395;
+          line-height: 20px;
+          p {
+            margin: 15px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-mob__content {
+    padding: 20px 20px 10rem;
+
+    .dashboard-mob__fields-list {
+      margin: 0 -20px;
+    }
+
+    h3 {
+      opacity: 0.5;
+      font-family: Quicksand;
+      font-weight: bold;
+      margin: 0 0 5px;
+      font-size: 12px;
+      color: #6E8395;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+
+  }
+}
+
+.dashboard-mob__bg {
+  width: 100%;
+  height: 95px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: fixed;
+  bottom: 0;
+}
+
+.dashboard-mob__tabs-content {
+  padding-bottom: 70px;
+}
+
+.dashboard-nav {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 68px;
+  background: white;
+  box-shadow: 0 -4px 36px 0 rgba(211,223,234,0.50);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+  .dashboard-nav__tab {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background: #FFFFFF;
+    height: 68px;
+    position: relative;
+
+    &.dashboard-nav__tab--home, &.dashboard-nav__tab--community {
+      img {
+        width: 23px;
+      }
+    }
+
+    &.dashboard-nav__tab--bell {
+      img {
+        width: 19px;
+        margin-top: 3px;
+      }
+    }
+
+    img {
+      margin-bottom: 15px;
+    }
+
+    p {
+      text-align: center;
+      margin: 0;
+      font-weight: bold;
+      font-size: 10px;
+      color: #6E8395;
+      letter-spacing: 1px;
+      position: absolute;
+      bottom: 9px;
+      left: 0;
+      right: 0;
+    }
+
+    &.active {
+      p {
+        color: #44CEFF;
+      }
+    }
+  }
+}

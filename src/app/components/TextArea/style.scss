@@ -1,0 +1,47 @@
+.textarea-wrap {
+  position: relative;
+}
+
+.textarea {
+  border: 0;
+  border-bottom: 1px solid #D9E5EF;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 0;
+  box-sizing: border-box;
+  width: 250px;
+  background: #E3E9EF;
+  outline: none;
+  color: #000000;
+  margin: 15px 0;
+
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  
+  &:focus {
+    border-bottom-width: 2px;
+    border-bottom-color: #89D3CA;
+  }
+}
+
+.textarea--block {
+  width: 100%;
+}
+
+.textarea--grow {
+  outline: none;
+  resize: none;
+  overflow: auto;
+  height: auto !important;
+}
+
+p.input__error-message {
+  color: #FF0000;
+  font-size: 10px;
+  font-family: Montserrat;
+  margin-top: 5px;
+  position: absolute;
+  top: 43px;
+}
