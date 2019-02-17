@@ -14,6 +14,7 @@ import 'isomorphic-fetch';
 import routes from './app/routes';
 import { getBrowserLanguage, getLocaleMessages } from './app/locales';
 import registerServiceWorker from './app/pwa/registerServiceWorker';
+import Firebase, { FirebaseContext } from './app/components/Firebase';
 
 const store = configureStore(
   browserHistory,
@@ -27,15 +28,17 @@ addLocaleData([...en]);
 registerServiceWorker();
 
 ReactDOM.hydrate(
-  <IntlProvider locale={getBrowserLanguage()} messages={getLocaleMessages()}>
-    <Provider store={store} key="provider">
-      <Router
-        history={history}
-        render={connectedCmp}
-      >
-        {routes}
-      </Router>
-    </Provider>
-  </IntlProvider>,
+  <FirebaseContext.Provider value={Firebase}>
+    <IntlProvider locale={getBrowserLanguage()} messages={getLocaleMessages()}>
+      <Provider store={store} key="provider">
+        <Router
+          history={history}
+          render={connectedCmp}
+        >
+          {routes}
+        </Router>
+      </Provider>
+    </IntlProvider>
+  </FirebaseContext.Provider>,
   document.getElementById('app'),
 );

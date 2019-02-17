@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="21px" viewBox="0 0 27 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="THIN-ALL-Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="THI-19-3" transform="translate(-52.000000, -110.000000)">
+            <g id="Group">
+                <g id="Bar/Navigation/Dark/Default" transform="translate(1.000000, 0.000000)">
+                    <g id="navigation-Bar/default">
+                        <g id="arrow-left-S-light" transform="translate(40.000000, 96.000000)">
+                            <rect id="bounds" fill-opacity="0.338428442" fill="#1C8FF8" opacity="0" x="0" y="0" width="48" height="48"></rect>
+                            <g id="arrow-left" stroke-width="1" transform="translate(12.000000, 15.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M25,9.5 L0,9.5" id="Shape" stroke-width="2"></path>
+                                <polyline id="Shape" stroke-width="2" points="9.375 19 0 9.5 9.375 0"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
