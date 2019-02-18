@@ -1,13 +1,13 @@
 import firebase from 'firebase';
+import { FIREBASE_API_KEY, FIREBASE_MS_ID } from '../../config';
 
 const app = firebase.initializeApp({
-  apiKey: 'AIzaSyAMXiyfOidrghBOihgMaUmIb_NYak6_QXs',
+  apiKey: FIREBASE_API_KEY,
   authDomain: 'thinblock.firebaseapp.com',
   databaseURL: 'https://thinblock.firebaseio.com',
   projectId: 'thinblock',
   storageBucket: 'thinblock.appspot.com',
-  messagingSenderId: '30823995012',
+  messagingSenderId: FIREBASE_MS_ID,
 });
 
-// export const ref = app.database().ref();
 export const firebaseAuth = app;
