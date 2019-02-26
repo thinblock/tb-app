@@ -23,7 +23,7 @@ interface IButtonProps {
   block?: boolean;
   processing?: boolean;
   disabled?: boolean;
-  onClick(): any;
+  onClick(prop?: any): any;
 };
 
 const Button: React.SFC<IButtonProps> = CSSModules(({

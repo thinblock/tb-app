@@ -1,17 +1,24 @@
 import * as React from 'react';
-import { firebaseAuth } from 'components';
+import { loginUser } from 'redux/reducers/auth';
 import { push } from 'react-router-redux';
+import * as CSSModules from 'react-css-modules';
+import { Button, Input, InputTypes } from 'components';
 const { connect } = require('react-redux');
+const style = require('./style.scss');
 
 interface InterfaceProps {
   email?: string;
   error?: any;
   history?: any;
   password?: string;
+  loginUser?(e: string, p: string): any;
   changeRoute?: Redux.ActionCreator<Redux.Action>;
 }
 
 interface InterfaceState {
+  loading: boolean;
+  errorMessage: string;
+  isLoggedIn: boolean;
   email: string;
   error: any;
   password: string;
@@ -21,16 +28,21 @@ interface InterfaceState {
   (state) => ({ auth: state.auth }),
   (dispatch) => ({
     changeRoute: (s) => dispatch(push(s)),
+    loginUser: (e: string, p: string) => dispatch(loginUser(e, p)),
   }),
 )
+@CSSModules(style, {allowMultiple: true})
 export class SignInForm extends React.Component<
   InterfaceProps,
   InterfaceState
 > {
   private static INITIAL_STATE = {
     email: '',
-    error: null,
     password: '',
+    loading: false,
+    error: false,
+    errorMessage: '',
+    isLoggedIn: false,
   };
 
   private static propKey(propertyName: string, value: any): object {
@@ -39,22 +51,21 @@ export class SignInForm extends React.Component<
 
   constructor(props: InterfaceProps) {
     super(props);
-
     this.state = { ...SignInForm.INITIAL_STATE };
+  }
+
+  public componentWillReceiveProps(nextProps: any)  {
+    if (nextProps.auth.isLoggedIn) {
+      this.props.changeRoute('/dashboard');
+    }
+    if (nextProps.auth.error) {
+      this.setState(SignInForm.propKey('error', true));
+    }
   }
 
   public onSubmit = (event: any) => {
     const { email, password } = this.state;
-
-    firebaseAuth.auth().signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState(() => ({ ...SignInForm.INITIAL_STATE }));
-        this.props.changeRoute('/dashboard');
-      })
-      .catch((error) => {
-        this.setState(SignInForm.propKey('error', error));
-      });
-
+    this.props.loginUser(email, password);
     event.preventDefault();
   }
 
@@ -64,25 +75,37 @@ export class SignInForm extends React.Component<
     const isInvalid = password === '' || email === '';
 
     return (
-      <form onSubmit={(event) => this.onSubmit(event)}>
-        <input
-          value={email}
-          onChange={(event) => this.setStateWithEvent(event, 'email')}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={password}
-          onChange={(event) => this.setStateWithEvent(event, 'password')}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <div styleName="background-grey">
+        <form onSubmit={(event) => this.onSubmit(event)}>
+          <Input
+            placeholder={'Email'}
+            type={InputTypes.TEXT}
+            value={email}
+            label={'Something'}
+            id="email"
+            block={true}
+            onChange={(event) => this.setStateWithEvent(event, 'email')}
+          />
+          <input
+            value={password}
+            onChange={(event) => this.setStateWithEvent(event, 'password')}
+            type="password"
+            placeholder="Password"
+          />
 
-        {error && <p>{error.message}</p>}
-      </form>
+          <div styleName="login__btn-wrap">
+            <Button
+              onClick={(event) => this.onSubmit(event)}
+              disabled={isInvalid}
+              round={true}
+            >
+              Sign In
+            </Button>
+
+            {error && <p>Invalid Credentials</p>}          
+          </div>
+        </form>      
+      </div>
     );
   }
 

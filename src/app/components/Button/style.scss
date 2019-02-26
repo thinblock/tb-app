@@ -3,7 +3,7 @@
   font-weight: bold;
   outline: none;
   border: none;
-  box-shadow: 0 5px 15px 0 rgba(61, 141, 251, .5);
+  box-shadow: 0 5px 15px 0 rgba(145, 167, 199, 0.5);
   border-radius: 5px;
   cursor: pointer;
   &:hover { 
@@ -51,10 +51,10 @@
 }
 
 .button--primary {
-  background: #3d8dfb;
+  background: linear-gradient(-90deg, #645AFF 0%, #A573FF 100%);
 
   .button__icon {
-    background-color: #2B82FB;
+    background: linear-gradient(-90deg, #645AFF 100%, #A573FF 100%);
   }
 }
 
