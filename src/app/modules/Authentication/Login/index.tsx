@@ -6,7 +6,7 @@ const style = require('./style.scss');
 
 const Login = CSSModules(({ history }: { [key: string]: any }) => (
   <React.Fragment>
-    <Header heading={'THINBLOCK'} />
+    <Header heading={'THINBLOCK LOGIN'} onCloseRedirect="/" />
     <div className="container" styleName="container__wrap">
       <div className="row">
         <div className="col-lg-6">

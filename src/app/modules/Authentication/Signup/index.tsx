@@ -32,7 +32,7 @@ class SignUpContainer extends React.Component<IProps, {}> {
   public render() {
     return (
       <React.Fragment>
-        <PageHeader heading={'THINBLOCK'} />
+        <PageHeader heading={'THINBLOCK SIGNUP'} onCloseRedirect="/" />
         <div className="container" styleName="signup_container__wrap">
           <div className="row">
             <div className="col-lg-6">

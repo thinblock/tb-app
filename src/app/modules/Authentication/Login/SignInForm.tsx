@@ -3,6 +3,8 @@ import { loginUser } from 'redux/reducers/auth';
 import { push } from 'react-router-redux';
 import * as CSSModules from 'react-css-modules';
 import { Button, Input, InputTypes, ButtonThemes } from 'components';
+import { IAuth } from 'models/auth';
+import { toast } from 'react-toastify';
 const { connect } = require('react-redux');
 const style = require('./style.scss');
 
@@ -11,6 +13,7 @@ interface InterfaceProps {
   error?: any;
   history?: any;
   password?: string;
+  authReducer?: IAuth;
   loginUser?(e: string, p: string): any;
   changeRoute?: Redux.ActionCreator<Redux.Action>;
 }
@@ -25,7 +28,7 @@ interface InterfaceState {
 }
 
 @connect(
-  (state) => ({ auth: state.auth }),
+  (state) => ({ authReducer: state.auth }),
   (dispatch) => ({
     changeRoute: (s) => dispatch(push(s)),
     loginUser: (e: string, p: string) => dispatch(loginUser(e, p)),
@@ -54,12 +57,18 @@ export class SignInForm extends React.Component<
     this.state = { ...SignInForm.INITIAL_STATE };
   }
 
-  public componentWillReceiveProps(nextProps: any)  {
-    if (nextProps.auth.isLoggedIn) {
-      this.props.changeRoute('/dashboard');
+  public componentDidMount() {
+    if (this.props.authReducer.isLoggedIn) {
+      this.props.changeRoute(`/dashboard`);
     }
-    if (nextProps.auth.error) {
-      this.setState(SignInForm.propKey('error', true));
+  }
+
+  public componentDidUpdate(prevProps: InterfaceProps) {
+    if (!prevProps.authReducer.isLoggedIn && this.props.authReducer.isLoggedIn) {
+      // user logged in
+      this.props.changeRoute(`/dashboard`);
+    } else if (!prevProps.authReducer.errorMessage && this.props.authReducer.errorMessage) {
+      toast.error(this.props.authReducer.errorMessage);
     }
   }
 
@@ -70,7 +79,8 @@ export class SignInForm extends React.Component<
   }
 
   public render() {
-    const { email, password, error } = this.state;
+    const { email, password } = this.state;
+    const { authReducer: { loading } } = this.props;
 
     const isInvalid = password === '' || email === '';
 
@@ -102,11 +112,10 @@ export class SignInForm extends React.Component<
               theme={ButtonThemes.PRIMARY}
               disabled={isInvalid}
               block={true}
+              processing={loading}
             >
               Sign In
             </Button>
-
-            {error && <p>Invalid Credentials</p>}          
           </div>
         </form>      
       </div>

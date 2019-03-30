@@ -76,6 +76,14 @@ var config = {
         ]
       },
       {
+        test: /\.css$/,
+        include: path.resolve('./node_modules'),
+        loaders: [
+          'style-loader',
+          'css-loader',
+        ]
+      },
+      {
         test: /\.eot(\?.*)?$/,
         loader: 'file-loader?name=fonts/[hash].[ext]'
       },

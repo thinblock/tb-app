@@ -25,7 +25,6 @@ const renderPage = (props: IPageHeaderProps) => {
 
   const style = {
     fontSize: '30px',
-    color: 'white',
   };
 
   return (

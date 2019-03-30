@@ -1,6 +1,11 @@
 import * as React from 'react';
 import * as CSSModules from 'react-css-modules';
-import { firebaseAuth, Input, InputTypes, Button, ButtonThemes } from 'components';
+const { connect } = require('react-redux');
+import { Input, InputTypes, Button, ButtonThemes } from 'components';
+import { push } from 'react-router-redux';
+import { signupUsingFirebase } from 'redux/reducers/auth';
+import { IAuth } from 'models/auth';
+import { toast } from 'react-toastify';
 const style = require('./style.scss');
 
 interface InterfaceProps {
@@ -10,6 +15,9 @@ interface InterfaceProps {
   passwordOne?: string;
   passwordTwo?: string;
   username?: string;
+  authReducer?: IAuth;
+  changeRoute?(r: string): any;
+  signupUsingFirebase?(email: string, password: string): any;
 }
 
 interface InterfaceState {
@@ -19,6 +27,13 @@ interface InterfaceState {
   passwordTwo: string;
   username: string;
 }
+@connect(
+  (state) => ({ authReducer: state.auth }),
+  (dispatch) => ({
+    changeRoute: (s) => dispatch(push(s)),
+    signupUsingFirebase: (e: string, p: string) => dispatch(signupUsingFirebase(e, p)),
+  }),
+)
 @CSSModules(style, {allowMultiple: true})
 export class SignUpForm extends React.Component<
   InterfaceProps,
@@ -41,24 +56,29 @@ export class SignUpForm extends React.Component<
     this.state = { ...SignUpForm.INITIAL_STATE };
   }
 
+  public componentDidMount() {
+    if (this.props.authReducer.isLoggedIn) {
+      this.props.changeRoute(`/dashboard`);
+    }
+  }
+
+  public componentDidUpdate(prevProps: InterfaceProps) {
+    if (!prevProps.authReducer.errorMessage && this.props.authReducer.errorMessage) {
+      toast.error(this.props.authReducer.errorMessage);
+    }
+  }
+
   public onSubmit(event: any) {
     event.preventDefault();
 
     const { email, passwordOne } = this.state;
-    const { history } = this.props;
 
-    firebaseAuth.auth().createUserWithEmailAndPassword(email, passwordOne)
-      .then(() => {
-        this.setState(() => ({ ...SignUpForm.INITIAL_STATE }));
-        history.push('/');
-      })
-      .catch((error) => {
-        this.setState(SignUpForm.propKey('error', error));
-      });
+    this.props.signupUsingFirebase(email, passwordOne);
   }
 
   public render() {
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const { username, email, passwordOne, passwordTwo } = this.state;
+    const { authReducer: { loading } } = this.props;
 
     const isInvalid =
       passwordOne !== passwordTwo ||
@@ -107,13 +127,11 @@ export class SignUpForm extends React.Component<
               theme={ButtonThemes.PRIMARY}
               disabled={isInvalid}
               block={true}
+              processing={loading}
             >
               Sign Up
             </Button>
-
-            {error && <p>Invalid Credentials</p>}          
           </div>
-          {error && <p>{error.message}</p>}
         </form>
       </div>
     );

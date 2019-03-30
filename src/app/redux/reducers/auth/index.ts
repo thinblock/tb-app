@@ -1,6 +1,6 @@
 import { IAuth, IAuthAction } from 'models/auth';
-import { CALL_API } from 'redux-api-middleware';
 import { firebaseAuth } from 'components';
+import { Persistence } from 'components/Firebase/firebase';
 
 /** Action Types */
 export const LOGIN_USER_REQUEST: string = 'auth/LOGIN_USER_REQUEST';
@@ -21,10 +21,21 @@ export const VERIFY_USER_PHONE_FAILURE: string = 'auth/VERIFY_USER_PHONE_FAILURE
 
 export const HYDRATE_STATE: string = 'auth/HYDRATE_STATE';
 
+export const SEND_VERIFICATION_EMAIL_REQUEST: string = 'auth/SEND_VERIFICATION_EMAIL_REQUEST';
+export const SEND_VERIFICATION_EMAIL_SUCCESS: string = 'auth/SEND_VERIFICATION_EMAIL_SUCCESS';
+export const SEND_VERIFICATION_EMAIL_FAILURE: string = 'auth/SEND_VERIFICATION_EMAIL_FAILURE';
+
+export const LOGOUT_USER_REQUEST: string = 'auth/LOGOUT_USER_REQUEST';
+export const LOGOUT_USER_SUCCESS: string = 'auth/LOGOUT_USER_SUCCESS';
+export const LOGOUT_USER_FAILURE: string = 'auth/LOGOUT_USER_FAILURE';
+
+export const SET_USER_OBJECT: string = 'auth/SET_USER_OBJECT';
+
 /** Auth: Initial State */
 const initialState: IAuth = {
   loading: false,
   error: false,
+  user: null,
   errorMessage: '',
   isLoggedIn: false,
 };
@@ -34,6 +45,8 @@ export function authReducer(state = initialState, action?: IAuthAction): Partial
   switch (action.type) {
     case LOGIN_USER_REQUEST:
     case SIGNUP_USER_REQUEST:
+    case SEND_VERIFICATION_EMAIL_REQUEST:
+    case LOGOUT_USER_REQUEST:
       return {
         ...state,
         loading: true,
@@ -41,25 +54,42 @@ export function authReducer(state = initialState, action?: IAuthAction): Partial
         errorMessage: '',
       };
     case SIGNUP_USER_SUCCESS:
+    case SEND_VERIFICATION_EMAIL_SUCCESS:
       return {
         ...state,
         loading: false,
         error: false,
         errorMessage: '',
       };
-
+    case SET_USER_OBJECT:
+      return {
+        ...state,
+        loading: false,
+        isLoggedIn: action.payload.user !== null,
+        user: action.payload.user,
+      };
+    case LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isLoggedIn: false,
+        user: null,
+      };
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
+        loading: false,
         isLoggedIn: true,
       };
     case LOGIN_USER_FAILURE:
     case SIGNUP_USER_FAILURE:
+    case SEND_VERIFICATION_EMAIL_FAILURE:
+    case LOGOUT_USER_FAILURE:
       return {
         ...state,
         loading: false,
         error: true,
-        errorMessage: '',
+        errorMessage: action.payload.error,
       };
 
     default:
@@ -70,30 +100,63 @@ export function authReducer(state = initialState, action?: IAuthAction): Partial
 export function loginUser(email: string, password: string) {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER_REQUEST });
-    firebaseAuth.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      dispatch({ type: LOGIN_USER_SUCCESS });
-    })
-    .catch(() => {
-      dispatch({ type: LOGIN_USER_FAILURE });
-    });
+    firebaseAuth.auth().setPersistence(Persistence.SESSION)
+      .then(() => {
+        firebaseAuth.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+          dispatch({ type: LOGIN_USER_SUCCESS });
+        })
+        .catch((error) => {
+          dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
+      });
   };
 }
 
-export function signupUser(data: any): Partial<IAuthAction> {
-  return ({
-    [CALL_API]: {
-      method: 'POST',
-      headers: {
-        'NO-AUTH': true,
-      },
-      endpoint: '/auth/signup',
-      body: JSON.stringify(data),
-      types: [
-        SIGNUP_USER_REQUEST,
-        SIGNUP_USER_SUCCESS,
-        SIGNUP_USER_FAILURE,
-      ],
-    },
-  });
+export function setUserObject(user: firebase.User) {
+  return (dispatch) => {
+    if (user) {
+      dispatch({ type: SET_USER_OBJECT, payload: { user } });
+    } else {
+      dispatch({ type: SET_USER_OBJECT, payload: { user: null } });
+    }
+  };
+}
+
+export function logout() {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_USER_REQUEST });
+    firebaseAuth.auth().signOut()
+      .then(() => {
+        dispatch({ type: LOGOUT_USER_SUCCESS });
+      })
+      .catch((error) => {
+        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
+      });
+  };
+}
+
+export function signupUsingFirebase(email: string, password: string) {
+  return (dispatch) => {
+    dispatch({ type: SIGNUP_USER_REQUEST });
+    firebaseAuth.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      dispatch({ type: SIGNUP_USER_SUCCESS });
+      dispatch({ type: SEND_VERIFICATION_EMAIL_REQUEST });
+      const user = firebaseAuth.auth().currentUser;
+      user.sendEmailVerification().then(() => {
+        dispatch({ type: SEND_VERIFICATION_EMAIL_SUCCESS });
+      }).catch((error) => {
+        // An error happened.
+        dispatch({ type: SEND_VERIFICATION_EMAIL_FAILURE, payload: { error: error.message } });
+      });
+    })
+    .catch((error) => {
+      dispatch({ type: SIGNUP_USER_FAILURE, payload: { error: error.message }});
+    });
+  };
 }

@@ -1,6 +1,7 @@
 export interface IAuth {
   loading: boolean;
   error: boolean;
+  user: firebase.User;
   errorMessage: string;
   isLoggedIn: boolean;
 }
