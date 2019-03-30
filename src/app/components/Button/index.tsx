@@ -6,6 +6,7 @@ export enum ButtonThemes {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   SECONDARY_ACTION = 'secondary_action',
+  TERTIARY = 'tertiary',
 }
 
 export enum ButtonSizes {

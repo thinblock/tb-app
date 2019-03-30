@@ -116,6 +116,15 @@ export class SignInForm extends React.Component<
             >
               Sign In
             </Button>
+            <br />
+            <p>Dont have an account?</p>
+            <Button
+              onClick={() => this.props.changeRoute(`/auth/signup`)}
+              theme={ButtonThemes.TERTIARY}
+              block={true}
+            >
+              Sign Up
+            </Button>
           </div>
         </form>      
       </div>

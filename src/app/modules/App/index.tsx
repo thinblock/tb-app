@@ -36,8 +36,9 @@ class App extends React.Component<IProps, typeof initialState> {
   private unlisten: any;
 
   public componentDidMount() {
+    // set up listener to handle manual redirects
     this.unlisten = browserHistory.listen((location) => {
-      if (location.pathname === '/') {
+      if (location.pathname === '/' && location.action === 'PUSH') {
         if (this.props.authReducer.user) {
           this.props.changeRoute(`/dashboard`);
         } else {
@@ -50,7 +51,7 @@ class App extends React.Component<IProps, typeof initialState> {
       if (authUser) {
         this.props.setUserObject(authUser);
       } else {
-        this.props.changeRoute(`/auth/login`);
+        this.props.setUserObject(null);
       }
     });
   }
