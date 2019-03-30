@@ -29,13 +29,12 @@ export const LOGOUT_USER_REQUEST: string = 'auth/LOGOUT_USER_REQUEST';
 export const LOGOUT_USER_SUCCESS: string = 'auth/LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_FAILURE: string = 'auth/LOGOUT_USER_FAILURE';
 
-export const SET_USER_OBJECT: string = 'auth/SET_USER_OBJECT';
-
 /** Auth: Initial State */
 const initialState: IAuth = {
   loading: false,
   error: false,
   user: null,
+  bootstrapping: true,
   errorMessage: '',
   isLoggedIn: false,
 };
@@ -43,6 +42,13 @@ const initialState: IAuth = {
 /** Reducer: AuthReducer */
 export function authReducer(state = initialState, action?: IAuthAction): Partial<IAuth> {
   switch (action.type) {
+    case HYDRATE_STATE:
+      return {
+        ...state,
+        bootstrapping: false,
+        isLoggedIn: action.payload.user !== null,
+        user: action.payload.user,
+      };
     case LOGIN_USER_REQUEST:
     case SIGNUP_USER_REQUEST:
     case SEND_VERIFICATION_EMAIL_REQUEST:
@@ -60,13 +66,6 @@ export function authReducer(state = initialState, action?: IAuthAction): Partial
         loading: false,
         error: false,
         errorMessage: '',
-      };
-    case SET_USER_OBJECT:
-      return {
-        ...state,
-        loading: false,
-        isLoggedIn: action.payload.user !== null,
-        user: action.payload.user,
       };
     case LOGOUT_USER_SUCCESS:
       return {
@@ -120,9 +119,9 @@ export function loginUser(email: string, password: string) {
 export function setUserObject(user: firebase.User) {
   return (dispatch) => {
     if (user) {
-      dispatch({ type: SET_USER_OBJECT, payload: { user } });
+      dispatch({ type: HYDRATE_STATE, payload: { user } });
     } else {
-      dispatch({ type: SET_USER_OBJECT, payload: { user: null } });
+      dispatch({ type: HYDRATE_STATE, payload: { user: null } });
     }
   };
 }

@@ -34,10 +34,10 @@ interface InterfaceState {
     loginUser: (e: string, p: string) => dispatch(loginUser(e, p)),
   }),
 )
-@CSSModules(style, {allowMultiple: true})
+@CSSModules(style, { allowMultiple: true })
 export class SignInForm extends React.Component<
-  InterfaceProps,
-  InterfaceState
+InterfaceProps,
+InterfaceState
 > {
   private static INITIAL_STATE = {
     email: '',
@@ -119,14 +119,17 @@ export class SignInForm extends React.Component<
             <br />
             <p>Dont have an account?</p>
             <Button
-              onClick={() => this.props.changeRoute(`/auth/signup`)}
+              onClick={(event) => {
+                event.preventDefault();
+                this.props.changeRoute(`/auth/signup`);
+              }}
               theme={ButtonThemes.TERTIARY}
               block={true}
             >
               Sign Up
             </Button>
           </div>
-        </form>      
+        </form>
       </div>
     );
   }

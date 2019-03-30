@@ -26,7 +26,7 @@ const initialState = {
     changeRoute: (r) => dispatch(push(r)),
   }),
 )
-@CSSModules(style, {allowMultiple: true})
+@CSSModules(style, { allowMultiple: true })
 class DesktopDashboard extends React.Component<IDesktopDashboardProps, typeof initialState> {
   public state: IState<typeof initialState> = initialState;
 
@@ -34,27 +34,16 @@ class DesktopDashboard extends React.Component<IDesktopDashboardProps, typeof in
     const { authReducer } = this.props;
     return (
       <div>
-        <Button theme={ButtonThemes.PRIMARY} onClick={() => this.props.changeRoute(`/auth/login`)}>Login</Button>
-        <Button theme={ButtonThemes.PRIMARY} onClick={() => this.props.changeRoute(`/auth/signup`)}>Signup</Button>
         <Button
           theme={ButtonThemes.PRIMARY}
           onClick={() => {
             this.props.logout();
           }}>
-            Logout
+          Logout
           </Button>
-        <h1><FormattedMessage id="dashboard.desktop.hello" /></h1>
-        Logged in as {authReducer.user ? authReducer.user.email : 'no one'}
-        {
-          authReducer.user && !authReducer.user.emailVerified ? (
-            <div><p>You need to verfiy your email adddress</p></div>
-          ) : <div />
-        }
-        {
-          authReducer.user && authReducer.user.emailVerified ? (
-            <div><p>Email verified</p></div>
-          ) : <div />
-        }
+        <h1>
+          <FormattedMessage id="dashboard.desktop.hello" /> {authReducer.user ? authReducer.user.email : ''}!
+        </h1>
       </div>
     ) as React.ReactNode;
   }

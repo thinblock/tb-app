@@ -6,3 +6,4 @@ export { Firebase } from './Firebase';
 export { firebaseAuth } from './Firebase/firebase';
 export { Icon, IconTypes } from './Icon';
 export { PageHeader } from './PageHeader';
+export { Spinner } from './Spinner';

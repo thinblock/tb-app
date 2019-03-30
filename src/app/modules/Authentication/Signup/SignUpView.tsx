@@ -34,10 +34,10 @@ interface InterfaceState {
     signupUsingFirebase: (e: string, p: string) => dispatch(signupUsingFirebase(e, p)),
   }),
 )
-@CSSModules(style, {allowMultiple: true})
+@CSSModules(style, { allowMultiple: true })
 export class SignUpForm extends React.Component<
-  InterfaceProps,
-  InterfaceState
+InterfaceProps,
+InterfaceState
 > {
   private static INITIAL_STATE = {
     email: '',
@@ -134,7 +134,10 @@ export class SignUpForm extends React.Component<
             <br />
             <p>Already have an account?</p>
             <Button
-              onClick={() => this.props.changeRoute(`/auth/login`)}
+              onClick={(event) => {
+                event.preventDefault();
+                this.props.changeRoute(`/auth/login`);
+              }}
               theme={ButtonThemes.TERTIARY}
               block={true}
             >
