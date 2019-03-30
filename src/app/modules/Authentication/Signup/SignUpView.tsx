@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { firebaseAuth } from 'components';
+import * as CSSModules from 'react-css-modules';
+import { firebaseAuth, Input, InputTypes, Button, ButtonThemes } from 'components';
+const style = require('./style.scss');
 
 interface InterfaceProps {
   email?: string;
@@ -17,7 +19,7 @@ interface InterfaceState {
   passwordTwo: string;
   username: string;
 }
-
+@CSSModules(style, {allowMultiple: true})
 export class SignUpForm extends React.Component<
   InterfaceProps,
   InterfaceState
@@ -65,41 +67,59 @@ export class SignUpForm extends React.Component<
       username === '';
 
     return (
-      <form onSubmit={(event) => this.onSubmit(event)}>
-        <input
-          value={username}
-          onChange={(event) => this.setStateWithEvent(event, 'username')}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          value={email}
-          onChange={(event) => this.setStateWithEvent(event, 'email')}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={passwordOne}
-          onChange={(event) => this.setStateWithEvent(event, 'passwordOne')}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          value={passwordTwo}
-          onChange={(event) => this.setStateWithEvent(event, 'passwordTwo')}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
+      <div styleName="signup__container">
+        <form onSubmit={(event) => this.onSubmit(event)}>
+          <Input
+            id="username"
+            value={username}
+            block={true}
+            onChange={(event) => this.setStateWithEvent(event, 'username')}
+            type={InputTypes.TEXT}
+            placeholder="Full Name"
+          />
+          <Input
+            id="email"
+            value={email}
+            block={true}
+            onChange={(event) => this.setStateWithEvent(event, 'email')}
+            type={InputTypes.TEXT}
+            placeholder="Email Address"
+          />
+          <Input
+            id="password_one"
+            value={passwordOne}
+            block={true}
+            onChange={(event) => this.setStateWithEvent(event, 'passwordOne')}
+            type={InputTypes.PASSWORD}
+            placeholder="Password"
+          />
+          <Input
+            id="password_two"
+            value={passwordTwo}
+            block={true}
+            onChange={(event) => this.setStateWithEvent(event, 'passwordTwo')}
+            type={InputTypes.PASSWORD}
+            placeholder="Confirm Password"
+          />
+          <div styleName="login__btn-wrap">
+            <Button
+              onClick={(event) => this.onSubmit(event)}
+              theme={ButtonThemes.PRIMARY}
+              disabled={isInvalid}
+              block={true}
+            >
+              Sign Up
+            </Button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+            {error && <p>Invalid Credentials</p>}          
+          </div>
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
     );
   }
 
-  private setStateWithEvent(event: any, columnType: string) {
-    this.setState(SignUpForm.propKey(columnType, (event.target as any).value));
+  private setStateWithEvent(value: string, columnType: string) {
+    this.setState(SignUpForm.propKey(columnType, value));
   }
 }

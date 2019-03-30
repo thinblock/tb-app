@@ -5,6 +5,194 @@
   box-sizing: border-box;
 }
 
-body {
+html, body, body > div {
+  padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
+
+// Tiny Grid by @alexerlandsson
+// https://alexerlandsson.com
+
+// This is a CSS grid system used to build responsive websites
+// and applications. For documentation, check out the GitHub repository:
+// https://github.com/alexerlandsson/tiny-grid
+
+// ===== Mixins =====
+
+@mixin tg-flex-display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin tg-flex($flex: 1) {
+  -webkit-flex: $flex;
+      -ms-flex: $flex;
+          flex: $flex;
+}
+
+@mixin --tg-flex-direction-prefixes($direction) {
+  @if $direction == row {
+    -webkit-box-direction: normal;
+       -webkit-box-orient: horizontal;
+  } @else if $direction == row-reverse {
+    -webkit-box-direction: reverse;
+       -webkit-box-orient: horizontal;
+  } @else if $direction == column {
+    -webkit-box-direction: normal;
+       -webkit-box-orient: vertical;
+  } @else if $direction == column-reverse {
+    -webkit-box-direction: reverse;
+       -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+       -webkit-box-orient: $direction;
+  }
+}
+
+@mixin tg-flex-direction($direction: row) {
+  @include --tg-flex-direction-prefixes($direction);
+  -ms-flex-direction: $direction;
+      flex-direction: $direction;
+}
+
+@mixin tg-flex-wrap($wrap: nowrap) {
+  -ms-flex-wrap: $wrap;
+      flex-wrap: $wrap;
+}
+
+// ===== Create Grid =====
+
+@mixin tiny-grid {
+
+  // Settings
+
+  $grid-columns: 12 !default;
+  $grid-gutter: 20px !default;
+  $grid-container-max-width: 1470px !default;
+  $grid-container-gutter: 18px !default;
+
+  $grid-breakpoints: (
+    sm: 600px,
+    md: 900px,
+    lg: 1200px,
+    xl: 1800px
+  ) !default;
+
+  // Container Elements
+
+  %container-base {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: $grid-container-gutter;
+    padding-right: $grid-container-gutter;
+    box-sizing: border-box;
+  }
+
+  .container {
+    @extend %container-base;
+    max-width: $grid-container-max-width;
+  }
+
+  .container-fluid {
+    @extend %container-base;
+  }
+
+  %row-base {
+    margin-left: ($grid-gutter / -2);
+    margin-right: ($grid-gutter / -2);
+    font-size: 0;
+
+    > * {
+      font-size: 1rem;
+    }
+  }
+
+  .row {
+    @extend %row-base;
+    box-sizing: border-box;
+  }
+
+  .flex-row {
+    @extend %row-base;
+    @include tg-flex-display;
+    @include tg-flex-direction(row);
+    @include tg-flex-wrap(wrap);
+    box-sizing: border-box;
+
+    > [class^="col-"],
+    > [class*=" col-"] {
+      @include tg-flex-display;
+      @include tg-flex(0 0 auto);
+      @include tg-flex-direction(column);
+
+      > * {
+        @include tg-flex(1 0 auto);
+      }
+    }
+  }
+
+  // Columns
+
+  [class^="col-"],
+  [class*=" col-"] {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    max-width: 100%;
+    min-height: 1px;
+    padding-left: ($grid-gutter / 2);
+    padding-right: ($grid-gutter / 2);
+    box-sizing: border-box;
+  }
+
+  // Create non-breakpoint specific columns and column offsets
+  @for $i from 1 through $grid-columns {
+    .col-#{$i} {
+      $col-width: ((100% / $grid-columns) * $i);
+
+      width: $col-width;
+      max-width: $col-width;
+    }
+    .col-offset-#{$i} {
+      $col-offset: ((100% / $grid-columns) * $i);
+
+      margin-left: $col-offset;
+    }
+  }
+
+  // Create breakpoint specific columns
+  @each $breakpoint-name in map-keys($grid-breakpoints) {
+    // Get each key's value
+    $breakpoint-width: map-get($grid-breakpoints, $breakpoint-name);
+
+    // Create media query for each breakpoint
+    @media (min-width: $breakpoint-width) {
+
+      // Add offset-0 to reset offset in specific breakpoints
+      .col-#{$breakpoint-name}-offset-0 {
+        margin-left: 0;
+      }
+
+      // Create columns and column offsets for each size in this breakpoint
+      @for $i from 1 through $grid-columns {
+        .col-#{$breakpoint-name}-#{$i} {
+          $col-width: ((100% / $grid-columns) * $i);
+
+          width: $col-width;
+          max-width: $col-width;
+        }
+        .col-#{$breakpoint-name}-offset-#{$i} {
+          $col-offset: ((100% / $grid-columns) * $i);
+
+          margin-left: $col-offset;
+        }
+      }
+    }
+  }
+}
+@include tiny-grid;

@@ -18,42 +18,40 @@
 
 .input {
   border: 0;
-  border-bottom: 1px solid #D9E5EF;
   font-size: 16px;
-  padding: 0 5px 10px;
-  width: 250px;
+  padding: 10px;
+  min-width: 150px;
   outline: none;
   border-radius: 0;
   box-sizing: border-box;
   color: #000000;
   margin: 15px 0;
+  border: 1px solid #CED4DA;
+  border-radius: 8px;    
 
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
-  
-  &:focus {
-    border-bottom-width: 2px;
-    border-bottom-color: #89D3CA;
-  }
+  transition: all 0.30s ease-in-out;
+
+  // &:focus {
+  //   border-bottom-width: 2px;
+  //   border-bottom-color: #89D3CA;
+  // }
 }
 
 .input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #BAC9D5;
-  font-family: 'SF Pro Display';
 }
 .input::-moz-placeholder { /* Firefox 19+ */
   color: #BAC9D5;
-  font-family: 'SF Pro Display';
 }
 .input:-ms-input-placeholder { /* IE 10+ */
   color: #BAC9D5;
-  font-family: 'SF Pro Display';
 }
 .input:-moz-placeholder { /* Firefox 18- */
   color: #BAC9D5;
-  font-family: 'SF Pro Display';
 }
 
 .input--transparent {
@@ -82,7 +80,6 @@
 p.input__error-message {
   color: #FF0000;
   font-size: 10px;
-  font-family: Montserrat;
   margin-top: 5px;
   position: absolute;
   top: 43px;
@@ -91,7 +88,6 @@ p.input__error-message {
 p.input__pin-error-message {
   color: #FF0000;
   font-size: 16px;
-  font-family: Montserrat;
   margin-top: 5px;
   position: absolute;
   left: 10px;

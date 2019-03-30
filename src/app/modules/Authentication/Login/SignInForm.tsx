@@ -2,7 +2,7 @@ import * as React from 'react';
 import { loginUser } from 'redux/reducers/auth';
 import { push } from 'react-router-redux';
 import * as CSSModules from 'react-css-modules';
-import { Button, Input, InputTypes } from 'components';
+import { Button, Input, InputTypes, ButtonThemes } from 'components';
 const { connect } = require('react-redux');
 const style = require('./style.scss');
 
@@ -75,29 +75,33 @@ export class SignInForm extends React.Component<
     const isInvalid = password === '' || email === '';
 
     return (
-      <div styleName="background-grey">
+      <div styleName="login__container">
         <form onSubmit={(event) => this.onSubmit(event)}>
           <Input
             placeholder={'Email'}
             type={InputTypes.TEXT}
             value={email}
-            label={'Something'}
+            label={'Email'}
             id="email"
             block={true}
             onChange={(event) => this.setStateWithEvent(event, 'email')}
           />
-          <input
+          <Input
+            id="password"
+            label={'Password'}
+            block={true}
             value={password}
             onChange={(event) => this.setStateWithEvent(event, 'password')}
-            type="password"
+            type={InputTypes.PASSWORD}
             placeholder="Password"
           />
 
           <div styleName="login__btn-wrap">
             <Button
               onClick={(event) => this.onSubmit(event)}
+              theme={ButtonThemes.PRIMARY}
               disabled={isInvalid}
-              round={true}
+              block={true}
             >
               Sign In
             </Button>
@@ -109,7 +113,7 @@ export class SignInForm extends React.Component<
     );
   }
 
-  private setStateWithEvent(event: any, columnType: string): void {
-    this.setState(SignInForm.propKey(columnType, (event.target as any).value));
+  private setStateWithEvent(value: string, columnType: string): void {
+    this.setState(SignInForm.propKey(columnType, value));
   }
 }

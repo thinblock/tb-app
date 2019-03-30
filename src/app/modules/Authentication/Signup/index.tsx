@@ -1,8 +1,10 @@
 import * as React from 'react';
+import * as CSSModules from 'react-css-modules';
 import { SignUpForm } from './SignUpView';
-import { firebaseAuth } from 'components';
+import { firebaseAuth, PageHeader } from 'components';
 import { push } from 'react-router-redux';
 const { connect } = require('react-redux');
+const style = require('./style.scss');
 
 interface IProps extends ReactIntl.InjectedIntlProps {
   changeRoute: Redux.ActionCreator<Redux.Action>;
@@ -14,6 +16,7 @@ interface IProps extends ReactIntl.InjectedIntlProps {
     changeRoute: (s) => dispatch(push(s)),
   }),
 )
+@CSSModules(style, {allowMultiple: true})
 class SignUpContainer extends React.Component<IProps, {}> {
   public handleSignUp = async (event) => {
     event.preventDefault();
@@ -27,7 +30,18 @@ class SignUpContainer extends React.Component<IProps, {}> {
   }
 
   public render() {
-    return <SignUpForm />;
+    return (
+      <React.Fragment>
+        <PageHeader heading={'THINBLOCK'} />
+        <div className="container" styleName="signup_container__wrap">
+          <div className="row">
+            <div className="col-lg-6">
+              <SignUpForm history={history} />
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
   }
 }
 

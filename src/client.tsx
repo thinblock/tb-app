@@ -14,7 +14,7 @@ import 'isomorphic-fetch';
 import routes from './app/routes';
 import { getBrowserLanguage, getLocaleMessages } from './app/locales';
 import registerServiceWorker from './app/pwa/registerServiceWorker';
-import Firebase, { FirebaseContext } from './app/components/Firebase';
+import { Firebase, FirebaseContext } from './app/components/Firebase';
 
 const store = configureStore(
   browserHistory,
