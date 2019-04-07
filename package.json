@@ -126,7 +126,7 @@
     "@types/validator": "^9.4.2",
     "animate.css": "^3.7.0",
     "body-scroll-lock": "^2.5.10",
-    "browser-image-resizer": "^1.2.0",
+    "browser-image-resizer": "^2.0.0",
     "chalk": "^2.3.0",
     "compression": "^1.6.2",
     "config": "^2.0.1",
