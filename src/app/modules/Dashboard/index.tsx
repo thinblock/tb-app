@@ -8,6 +8,4 @@ if (process.env.MOBILE) {
   Dashboard = DesktopDashboard as any;
 }
 
-export {
-  Dashboard
-}
+export { Dashboard };

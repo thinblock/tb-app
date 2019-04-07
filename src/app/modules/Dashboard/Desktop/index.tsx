@@ -49,6 +49,4 @@ class DesktopDashboard extends React.Component<IDesktopDashboardProps, typeof in
   }
 }
 
-export {
-  DesktopDashboard
-}
+export { DesktopDashboard };

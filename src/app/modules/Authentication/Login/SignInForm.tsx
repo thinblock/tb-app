@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const { connect } = require('react-redux');
 const style = require('./style.scss');
 
-interface InterfaceProps {
+interface IInterfaceProps {
   email?: string;
   error?: any;
   history?: any;
@@ -18,7 +18,7 @@ interface InterfaceProps {
   changeRoute?: Redux.ActionCreator<Redux.Action>;
 }
 
-interface InterfaceState {
+interface IInterfaceState {
   loading: boolean;
   errorMessage: string;
   isLoggedIn: boolean;
@@ -36,8 +36,8 @@ interface InterfaceState {
 )
 @CSSModules(style, { allowMultiple: true })
 export class SignInForm extends React.Component<
-InterfaceProps,
-InterfaceState
+IInterfaceProps,
+IInterfaceState
 > {
   private static INITIAL_STATE = {
     email: '',
@@ -52,7 +52,7 @@ InterfaceState
     return { [propertyName]: value };
   }
 
-  constructor(props: InterfaceProps) {
+  constructor(props: IInterfaceProps) {
     super(props);
     this.state = { ...SignInForm.INITIAL_STATE };
   }
@@ -63,7 +63,7 @@ InterfaceState
     }
   }
 
-  public componentDidUpdate(prevProps: InterfaceProps) {
+  public componentDidUpdate(prevProps: IInterfaceProps) {
     if (!prevProps.authReducer.isLoggedIn && this.props.authReducer.isLoggedIn) {
       // user logged in
       this.props.changeRoute(`/dashboard`);

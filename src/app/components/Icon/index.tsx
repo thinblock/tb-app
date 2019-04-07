@@ -6,7 +6,7 @@ interface IIconProps {
   imageIcon?: boolean;
   style?: any;
   onClick?(e: React.MouseEvent<HTMLSpanElement>): any;
-};
+}
 
 export enum IconTypes {
   ARROW_LEFT_WHITE = 'ion-ios-arrow-thin-left',

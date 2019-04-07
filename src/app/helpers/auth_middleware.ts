@@ -36,9 +36,7 @@ export const apiInterceptor = ({ getState }) => (next) => (action) => {
     if (!callApi.headers['NO-AUTH']) {
       if (auth && auth.jwt) {
         // if there is token apply it
-        callApi.headers = Object.assign({}, callApi.headers, {
-          Authorization: `Bearer ${auth.jwt}`,
-        });
+        callApi.headers = {...callApi.headers, Authorization: `Bearer ${auth.jwt}`};
       } else {
         // we can't proceed. Move to login state.
         startOver();

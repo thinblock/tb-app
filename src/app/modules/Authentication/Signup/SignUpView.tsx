@@ -8,7 +8,7 @@ import { IAuth } from 'models/auth';
 import { toast } from 'react-toastify';
 const style = require('./style.scss');
 
-interface InterfaceProps {
+interface IInterfaceProps {
   email?: string;
   error?: any;
   history?: any;
@@ -20,7 +20,7 @@ interface InterfaceProps {
   signupUsingFirebase?(email: string, password: string): any;
 }
 
-interface InterfaceState {
+interface IInterfaceState {
   email: string;
   error: any;
   passwordOne: string;
@@ -36,8 +36,8 @@ interface InterfaceState {
 )
 @CSSModules(style, { allowMultiple: true })
 export class SignUpForm extends React.Component<
-InterfaceProps,
-InterfaceState
+IInterfaceProps,
+IInterfaceState
 > {
   private static INITIAL_STATE = {
     email: '',
@@ -51,7 +51,7 @@ InterfaceState
     return { [propertyName]: value };
   }
 
-  constructor(props: InterfaceProps) {
+  constructor(props: IInterfaceProps) {
     super(props);
     this.state = { ...SignUpForm.INITIAL_STATE };
   }
@@ -62,7 +62,7 @@ InterfaceState
     }
   }
 
-  public componentDidUpdate(prevProps: InterfaceProps) {
+  public componentDidUpdate(prevProps: IInterfaceProps) {
     if (!prevProps.authReducer.errorMessage && this.props.authReducer.errorMessage) {
       toast.error(this.props.authReducer.errorMessage);
     }

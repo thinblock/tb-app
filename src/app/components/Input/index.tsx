@@ -84,5 +84,5 @@ const Input: React.SFC<IInputProps> = CSSModules((comProps: IInputProps) => {
 );
 
 export {
-  Input
-}
+  Input,
+};

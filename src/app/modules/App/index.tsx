@@ -100,4 +100,4 @@ class App extends React.Component<IProps, typeof initialState> {
   }
 }
 
-export { App }
+export { App };

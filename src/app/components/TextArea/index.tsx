@@ -3,7 +3,7 @@ import * as CSSModules from 'react-css-modules';
 const style = require('./style.scss');
 
 interface ITextAreaProps {
-  onChange(val: string, event: Event): any;
+  onChange(val: string, event: React.ChangeEvent): any;
   id: string;
   name?: string;
   placeholder?: string;
@@ -50,6 +50,4 @@ const TextArea = CSSModules(({ autoGrow, lineHeight, errorMessage, onChange, blo
   { allowMultiple: true },
 ) as React.SFC<ITextAreaProps>;
 
-export {
-  TextArea
-}
+export { TextArea };

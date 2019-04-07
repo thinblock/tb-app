@@ -86,7 +86,7 @@ app.get('*', (req, res) => {
       } else if (redirectLocation) {
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       } else if (renderProps) {
-        const asyncRenderData = Object.assign({}, renderProps, { store });
+        const asyncRenderData = {...renderProps,  store};
         if (appConfig.ssr) {
           const md = new MobileDetect(req.headers['user-agent']);
           const globalTmp = global as any;

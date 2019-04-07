@@ -45,4 +45,4 @@ class SignUpContainer extends React.Component<IProps, {}> {
   }
 }
 
-export { SignUpContainer }
+export { SignUpContainer };
