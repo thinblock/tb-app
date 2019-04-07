@@ -5,3 +5,4 @@ export { Html } from './Html';
 export { Login } from './Authentication/Login';
 export { SignUpContainer } from './Authentication/Signup';
 export { Unverified } from './Authentication/Unverified';
+export { AddWallet, MonitoredWallets } from './Wallets';

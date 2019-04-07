@@ -4,6 +4,7 @@ import { SignUpForm } from './SignUpView';
 import { firebaseAuth, PageHeader } from 'components';
 import { push } from 'react-router-redux';
 const { connect } = require('react-redux');
+import { Container, Row, Col } from 'react-bootstrap';
 const style = require('./style.scss');
 
 interface IProps extends ReactIntl.InjectedIntlProps {
@@ -16,7 +17,7 @@ interface IProps extends ReactIntl.InjectedIntlProps {
     changeRoute: (s) => dispatch(push(s)),
   }),
 )
-@CSSModules(style, {allowMultiple: true})
+@CSSModules(style, { allowMultiple: true })
 class SignUpContainer extends React.Component<IProps, {}> {
   public handleSignUp = async (event) => {
     event.preventDefault();
@@ -31,16 +32,16 @@ class SignUpContainer extends React.Component<IProps, {}> {
 
   public render() {
     return (
-      <React.Fragment>
-        <PageHeader heading={'THINBLOCK SIGNUP'} onCloseRedirect="/" />
-        <div className="container" styleName="signup_container__wrap">
-          <div className="row">
-            <div className="col-lg-6">
+      <div styleName="signup__wrap">
+        <Container className="container__wrap">
+          <PageHeader heading={'THINBLOCK SIGNUP'} onCloseRedirect="/" />
+          <Row>
+            <Col>
               <SignUpForm history={history} />
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

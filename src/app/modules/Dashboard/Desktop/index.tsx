@@ -2,10 +2,13 @@ import * as React from 'react';
 import { IState } from 'interfaces/components';
 import * as CSSModules from 'react-css-modules';
 import { push } from 'react-router-redux';
-import { FormattedMessage } from 'react-intl';
-import { Button, ButtonThemes } from 'components';
 import { IAuth } from 'models/auth';
 import { logout } from 'redux/reducers/auth';
+import { PageNav } from 'components/Navbar';
+import { Footer } from 'components/Footer';
+import { Container } from 'react-bootstrap';
+import { Section } from 'components';
+import { AddWallet, MonitoredWallets } from 'modules/Wallets';
 const { connect } = require('react-redux');
 const style = require('./style.scss');
 
@@ -33,17 +36,22 @@ class DesktopDashboard extends React.Component<IDesktopDashboardProps, typeof in
   public render() {
     const { authReducer } = this.props;
     return (
-      <div>
-        <Button
-          theme={ButtonThemes.PRIMARY}
-          onClick={() => {
-            this.props.logout();
-          }}>
-          Logout
-          </Button>
-        <h1>
-          <FormattedMessage id="dashboard.desktop.hello" /> {authReducer.user ? authReducer.user.email : ''}!
-        </h1>
+      <div styleName="dashboard__wrap">
+        <PageNav
+          email={authReducer.user ? authReducer.user.email : ''}
+          logoutAction={this.props.logout}
+        />
+        <Container>
+          <div styleName="dashboard__content">
+            <Section>
+              <AddWallet />
+            </Section>
+            <Section>
+              <MonitoredWallets />
+            </Section>
+          </div>
+        </Container>
+        <Footer />
       </div>
     ) as React.ReactNode;
   }

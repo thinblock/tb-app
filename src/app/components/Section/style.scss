@@ -1,0 +1,23 @@
+$break-small: 768px;
+$break-medium: 992px;
+$break-large: 1200px;
+
+.section__wrap {
+  position: relative;
+  padding: 10px;
+
+  .section__jumbotron {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 992px;
+    background-color: #ffffff;
+    border-radius: .3rem;
+    border: 1px solid #CED4DA;
+    padding: 1em 0em;
+
+    @media screen and (min-width: $break-medium) {
+      padding: 1.25em 1.5em;
+    }
+  }
+}

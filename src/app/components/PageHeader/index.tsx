@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as CSSModules from 'react-css-modules';
 import { Icon, IconTypes } from 'components/Icon';
 import { push } from 'react-router-redux';
-const {connect} = require('react-redux');
+const { connect } = require('react-redux');
 const style = require('./style.scss');
 
 interface IPageHeaderProps {
@@ -28,27 +28,29 @@ const renderPage = (props: IPageHeaderProps) => {
   };
 
   return (
-    <div styleName="header-d">
-      <div styleName="header-d__actions">
-        <span styleName="header-d__close">
-          <Icon
-            size={leftActionIconSize}
-            style={style}
-            onClick={
-              () => {
-                if (onCloseClick) {
-                  onCloseClick();
-                } else {
-                  changeRoute(onCloseRedirect);
+    <div styleName="header">
+      <div styleName="header__actions">
+        {onCloseClick && (
+          <span styleName="header__close">
+            <Icon
+              size={leftActionIconSize}
+              style={style}
+              onClick={
+                () => {
+                  if (onCloseClick) {
+                    onCloseClick();
+                  } else {
+                    changeRoute(onCloseRedirect);
+                  }
                 }
               }
-            }
-            type={IconTypes.ARROW_LEFT_WHITE}
-          />
-        </span>
+              type={IconTypes.ARROW_LEFT_WHITE}
+            />
+          </span>
+        )}
         {
           (heading || subheading) && (
-            <div styleName="header-d__headings-wrap">
+            <div styleName="header__headings-wrap">
               <p>{heading}</p>
               {
                 subheading &&

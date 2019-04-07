@@ -87,7 +87,7 @@ IInterfaceState
       username === '';
 
     return (
-      <div styleName="signup__container">
+      <div styleName="signup__form">
         <form onSubmit={(event) => this.onSubmit(event)}>
           <Input
             id="username"

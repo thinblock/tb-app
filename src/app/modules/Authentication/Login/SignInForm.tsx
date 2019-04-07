@@ -85,7 +85,7 @@ IInterfaceState
     const isInvalid = password === '' || email === '';
 
     return (
-      <div styleName="login__container">
+      <div styleName="login__form">
         <form onSubmit={(event) => this.onSubmit(event)}>
           <Input
             placeholder={'Email'}
