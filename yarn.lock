@@ -135,9 +135,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/redux-mock-store@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-0.0.12.tgz#0c1b298e62aa5da273bcd347c73ebe629e9a1523"
+"@types/redux-mock-store@0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-0.0.14.tgz#c46f2bdf51c87db972424d350ec72ab333ab13b8"
+  integrity sha512-q3rLLXRVoJvQZR+85bQWKmDrQc8t/pfoE3eKSV3yTPqY++ye4EWB8mloN/86qc2iwspwm3gQ4vg5Bli/2/R+uA==
   dependencies:
     redux "^3.6.0"
 
