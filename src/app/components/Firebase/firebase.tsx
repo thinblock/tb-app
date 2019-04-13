@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 // import { FIREBASE_API_KEY, FIREBASE_MS_ID } from '../../config';
 
 const app = firebase.initializeApp({
@@ -17,4 +18,5 @@ export const Persistence = {
   NONE: firebase.auth.Auth.Persistence.NONE,
 };
 
+export const firebaseDb = app.firestore();
 export const firebaseAuth = app;
