@@ -1,5 +1,8 @@
 interface IAddressData {
+  id: string;
+  network: string;
   address: string;
+  emoji: string;
   created_at: Date;
 }
 

@@ -1,6 +1,6 @@
-import { IAuth, IAuthAction } from 'models/auth';
+import { IAuth, IAuthAction } from 'models/auth';
 import { firebaseAuth } from 'components';
-import { Persistence } from 'components/Firebase/firebase';
+import { Persistence, firebaseDb } from 'components/Firebase/firebase';
 
 /** Action Types */
 export const LOGIN_USER_REQUEST: string = 'auth/LOGIN_USER_REQUEST';
@@ -102,16 +102,16 @@ export function loginUser(email: string, password: string) {
     firebaseAuth.auth().setPersistence(Persistence.SESSION)
       .then(() => {
         firebaseAuth.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
-          dispatch({ type: LOGIN_USER_SUCCESS });
-        })
-        .catch((error) => {
-          dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
-        });
+          .then(() => {
+            dispatch({ type: LOGIN_USER_SUCCESS });
+          })
+          .catch((error) => {
+            dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message } });
+          });
       })
       .catch((error) => {
         // Handle Errors here.
-        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
+        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message } });
       });
   };
 }
@@ -134,7 +134,7 @@ export function logout() {
         dispatch({ type: LOGOUT_USER_SUCCESS });
       })
       .catch((error) => {
-        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message }});
+        dispatch({ type: LOGIN_USER_FAILURE, payload: { error: error.message } });
       });
   };
 }
@@ -143,19 +143,27 @@ export function signupUsingFirebase(email: string, password: string) {
   return (dispatch) => {
     dispatch({ type: SIGNUP_USER_REQUEST });
     firebaseAuth.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      dispatch({ type: SIGNUP_USER_SUCCESS });
-      dispatch({ type: SEND_VERIFICATION_EMAIL_REQUEST });
-      const user = firebaseAuth.auth().currentUser;
-      user.sendEmailVerification().then(() => {
-        dispatch({ type: SEND_VERIFICATION_EMAIL_SUCCESS });
-      }).catch((error) => {
-        // An error happened.
-        dispatch({ type: SEND_VERIFICATION_EMAIL_FAILURE, payload: { error: error.message } });
+      .then((res) => {
+        dispatch({ type: SEND_VERIFICATION_EMAIL_REQUEST });
+        const user = firebaseAuth.auth().currentUser;
+        user.sendEmailVerification().then(() => {
+          dispatch({ type: SEND_VERIFICATION_EMAIL_SUCCESS });
+          firebaseDb.collection('users').doc(res.user.uid).set({
+            email: res.user.email,
+            uid: res.user.uid,
+          }).then(() => {
+            dispatch({ type: SIGNUP_USER_SUCCESS });
+            // created user in collection
+          }).catch((error) => {
+            dispatch({ type: SIGNUP_USER_FAILURE, payload: { error: error.message } });
+          });
+        }).catch((error) => {
+          // An error happened.
+          dispatch({ type: SEND_VERIFICATION_EMAIL_FAILURE, payload: { error: error.message } });
+        });
+      })
+      .catch((error) => {
+        dispatch({ type: SIGNUP_USER_FAILURE, payload: { error: error.message } });
       });
-    })
-    .catch((error) => {
-      dispatch({ type: SIGNUP_USER_FAILURE, payload: { error: error.message }});
-    });
   };
 }

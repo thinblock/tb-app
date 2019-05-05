@@ -15,7 +15,7 @@ export const PageNav: React.SFC<INavProps> = CSSModules((props: INavProps) => (
     <Navbar collapseOnSelect={true} expand="sm" bg="light" variant="light">
       <Navbar.Brand href="#home">ThinBlock</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Collapse>
         <Nav className="mr-auto">
           <Nav.Item style={{ color: '#04A2E2' }}>MONITO</Nav.Item>
         </Nav>
