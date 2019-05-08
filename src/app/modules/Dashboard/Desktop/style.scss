@@ -1,11 +1,17 @@
-
 .dashboard__wrap {
   position: relative;
   overflow: scroll;
   min-height: 100%;
-  background: #F4F4F4;
+  background: #f4f4f4;
   padding-bottom: 120px;
   .dashboard__content {
-    padding-top: 20px;
+    padding-top: 60px;
+
+    .dashboard__content_title {
+      text-align: center;
+      color: #5c5c5c;
+      font-size: 16px;
+      line-height: 19px;
+    }
   }
 }

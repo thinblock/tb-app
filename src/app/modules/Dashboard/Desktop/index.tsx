@@ -43,6 +43,9 @@ class DesktopDashboard extends React.Component<IDesktopDashboardProps, typeof in
         />
         <Container>
           <div styleName="dashboard__content">
+            <div styleName="dashboard__content_title">
+              Add addresses to receive transaction notifications.
+            </div>
             <Section>
               <AddWallet />
             </Section>

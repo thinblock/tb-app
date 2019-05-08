@@ -26,6 +26,7 @@ const initialState = {
 
 const ColWrap = styled(Col)`
   &&& {
+    margin-top: 10px;
     padding: 0px 8px;
   }
 `;
@@ -62,7 +63,7 @@ class AddWallet extends React.Component<IAddWalletProps, typeof initialState> {
         <Row className="justify-content-md-center">
           <ColWrap sm={12} md={'auto'}>
             <Dropdown className="mb-3">
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
                 ETH
               </Dropdown.Toggle>
               <Dropdown.Menu alightRight={true}>

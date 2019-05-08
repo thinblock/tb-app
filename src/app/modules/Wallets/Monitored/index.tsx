@@ -41,7 +41,7 @@ class MonitoredWallets extends React.Component<IAddWalletProps, typeof initialSt
   {
     Header: '',
     accessor: 'emoji',
-    Cell: (props) => <Emoji emoji={props.value} set="apple" size={22} />,
+    Cell: (props) => <Emoji emoji={props.value} set="apple" size={20} />,
     width: 60,
     style: { textAlign: 'center' },
   }, {

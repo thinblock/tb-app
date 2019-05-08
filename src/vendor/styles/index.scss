@@ -24,3 +24,13 @@ body #app {
   transform: translateY(-50%);
   min-width: 100%;
 }
+
+.btn-primary {
+  background-color: #5C6BC0;
+  border-color: #5C6BC0;
+  color: white;
+}
+.btn-primary:disabled {
+  background-color: #8c96c9;
+  border-color: #8c96c9;  
+}

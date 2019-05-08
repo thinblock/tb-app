@@ -17,7 +17,7 @@ export const PageNav: React.SFC<INavProps> = CSSModules((props: INavProps) => (
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="mr-auto">
-          <Nav.Item style={{ color: '#04A2E2' }}>MONITO</Nav.Item>
+          <Nav.Item style={{ color: '#04A2E2', fontWeight: 500 }}>MONITOR</Nav.Item>
         </Nav>
         <Nav>
           <Nav.Link>{props.email}</Nav.Link>
