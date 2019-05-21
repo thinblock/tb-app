@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:8.14
+FROM mhart/alpine-node:8.16
 
 LABEL authors="Hamza Baig"
 
